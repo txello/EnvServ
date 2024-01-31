@@ -51,7 +51,7 @@ print(env.FirstVar) # New variable value
 print(type(env.FirstVar)) # <class 'str'>
 ```
 
-Example №2:
+Example №3:
 ```env
 # file: .env
 pass = 100
