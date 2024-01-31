@@ -52,7 +52,7 @@ print(type(env.FirstVar)) # <class 'str'>
 ```
 # Version logger:
 
-### 1.0
+### 1.0.0
 * Model added
 * Added variable change
 * Added class instance information output
