@@ -1,1 +1,1 @@
-from .get import EnvBase
+from .get import EnvBase, variable

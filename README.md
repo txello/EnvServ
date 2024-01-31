@@ -50,9 +50,35 @@ print(env) # EnvServ(FirstVar:<class 'str'> = New variable value)
 print(env.FirstVar) # New variable value
 print(type(env.FirstVar)) # <class 'str'>
 ```
+
+Example №2:
+```env
+# file: .env
+pass = 100
+```
+```python
+from envserv import EnvBase, variable
+
+class MyEnv(EnvBase):
+    __envfile__ = '.env'
+    
+    pass_:int = variable(alias='pass',overwrite=False)
+
+env = MyEnv()
+
+print(env) # EnvServ(pass_:<class 'int'> = 100)
+print(env.pass_) # 100
+print(type(env.pass_)) # <class 'int'>
+
+env.pass_ = 1 # envserv.errors.EnvVariableError: Error overwriting variable pass_: It cannot be overwritten
+```
+
 # Version logger:
 
 ### 1.0.0
 * Model added
 * Added variable change
 * Added class instance information output
+
+### 1.0.1
+* Added rules for variable (beta)
