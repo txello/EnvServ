@@ -82,3 +82,11 @@ env.pass_ = 1 # envserv.errors.EnvVariableError: Error overwriting variable pass
 
 ### 1.0.1
 * Added rules for variable (beta)
+
+### 1.0.2
+* Added setting for docker-compose (Variable \_\_envfile\_\_ does not need to be written)
+
+### 1.0.3
+* Fix alias param
+* Fix error message
+=======
