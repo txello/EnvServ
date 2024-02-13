@@ -73,6 +73,39 @@ print(type(env.pass_)) # <class 'int'>
 env.pass_ = 1 # envserv.errors.EnvVariableError: Error overwriting variable pass_: It cannot be overwritten
 ```
 
+Example №4:
+```env
+# file: .env
+A = Text
+B = 2
+C = [1, 2, 3, 4, 5]
+D = {1: 2, 3: 4}
+E = null
+```
+```python
+from envserv import EnvBase
+
+from types import NoneType
+
+class MyEnv(EnvBase):
+    __envfile__ = '.env'
+    
+    A:str
+    B:int
+    C:list
+    D:dict
+    E:NoneType
+
+
+env = MyEnv()
+print(env.all())
+print(env.all(dumps=True))
+
+# Вывод:
+# {'A': 'Text', 'B': 2, 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None}
+# {"A": "Text", "B": 2, "C": [1, 2, 3, 4, 5], "D": {"1": 2, "3": 4}, "E": null}
+```
+
 # Version logger:
 
 ### 1.0.0
@@ -89,3 +122,8 @@ env.pass_ = 1 # envserv.errors.EnvVariableError: Error overwriting variable pass
 ### 1.0.3
 * Fix alias param
 * Fix error message
+
+### 1.0.4
+* Added support for the list, dict and None variable
+* Added parameter encoding to the class instance
+* Added function __all()__ to display the dictionary
