@@ -99,7 +99,7 @@ class MyEnv(EnvBase):
 
 env = MyEnv()
 print(env.all())
-print(env.all(dumps=True))
+print(env.json())
 
 # Вывод:
 # {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': {1, 2, 3, 4, 5}}
