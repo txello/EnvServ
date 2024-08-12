@@ -77,33 +77,33 @@ Example №4:
 ```env
 # file: .env
 A = Text
-B = 2
+ERR = this is error
 C = [1, 2, 3, 4, 5]
 D = {1: 2, 3: 4}
 E = null
+F = {1,2,3,4,5}
 ```
 ```python
-from envserv import EnvBase
-
-from types import NoneType
+from envserv import EnvBase, Variable
 
 class MyEnv(EnvBase):
     __envfile__ = '.env'
     
     A:str
-    B:int
+    B:int = Variable(alias="ERR", error=False)
     C:list
     D:dict
-    E:NoneType
+    E:None
+    F:set
 
 
 env = MyEnv()
 print(env.all())
-print(env.all(dumps=True))
+print(env.json())
 
 # Вывод:
-# {'A': 'Text', 'B': 2, 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None}
-# {"A": "Text", "B": 2, "C": [1, 2, 3, 4, 5], "D": {"1": 2, "3": 4}, "E": null}
+# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': {1, 2, 3, 4, 5}}
+# {"A": "Text", "B": "this is error", "C": [1, 2, 3, 4, 5], "D": {"1": 2, "3": 4}, "E": null, "F": [1, 2, 3, 4, 5]}
 ```
 
 # Version logger:
@@ -127,3 +127,8 @@ print(env.all(dumps=True))
 * Added support for the list, dict and None variable
 * Added parameter encoding to the class instance
 * Added function __all()__ to display the dictionary
+
+### 1.0.5
+* Code refactoring has been completed
+* Added class __Variable__
+* Added `toString` parameter to __all()__ function and added __json()__ function

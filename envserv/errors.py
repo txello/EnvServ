@@ -9,3 +9,11 @@ class EnvVariableError(NameError):
 class EnvTypeError(TypeError):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
+        
+class EnvValueError(ValueError):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+        
+class EnvOverwriteError(ValueError):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
