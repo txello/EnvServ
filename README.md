@@ -133,7 +133,3 @@ print(env.all(toString=True))
 * Code refactoring has been completed
 * Added class __Variable__
 * Added `toString` parameter to __all()__ function and added __json()__ function
-
-### 1.0.6
-* Added the ability to have a default value for .env variable
-* Fixed reading of .env file
