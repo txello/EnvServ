@@ -95,15 +95,16 @@ class MyEnv(EnvBase):
     D:dict
     E:None
     F:set
+    not_in:str = "test"
 
 
 env = MyEnv()
 print(env.all())
-print(env.json())
+print(env.all(toString=True))
 
 # Вывод:
-# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': {1, 2, 3, 4, 5}}
-# {"A": "Text", "B": "this is error", "C": [1, 2, 3, 4, 5], "D": {"1": 2, "3": 4}, "E": null, "F": [1, 2, 3, 4, 5]}
+# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': {1, 2, 3, 4, 5}, 'not_in': 'test'}
+# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': [1, 2, 3, 4, 5], 'not_in': 'test'}
 ```
 
 # Version logger:
