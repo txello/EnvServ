@@ -10,12 +10,11 @@ class EnvType:
             
             if typing in [None, NoneType]:
                 return self.type_none(name, value)
-        
         return self.type_any(name, value, typing, error)
     
     def type_literal(name, value:str, typing):
         result = ast.literal_eval(value)
-        if type(result) is not typing:
+        if not isinstance(result, typing):
             raise EnvTypeError("Failed to set value: {key}".format(key=name))
         return result
     
@@ -28,7 +27,7 @@ class EnvType:
         if error:
             try:
                 result = typing(value)
-            except ValueError:
+            except (ValueError, TypeError):
                 raise EnvTypeError("Failed to set value: {key}".format(key=name))
         else: result = str(value)
         return result

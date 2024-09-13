@@ -95,15 +95,16 @@ class MyEnv(EnvBase):
     D:dict
     E:None
     F:set
+    not_in:str = "test"
 
 
 env = MyEnv()
 print(env.all())
-print(env.all(dumps=True))
+print(env.all(toString=True))
 
 # Вывод:
-# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': {1, 2, 3, 4, 5}}
-# {"A": "Text", "B": "this is error", "C": [1, 2, 3, 4, 5], "D": {"1": 2, "3": 4}, "E": null, "F": [1, 2, 3, 4, 5]}
+# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': {1, 2, 3, 4, 5}, 'not_in': 'test'}
+# {'A': 'Text', 'B': 'this is error', 'C': [1, 2, 3, 4, 5], 'D': {1: 2, 3: 4}, 'E': None, 'F': [1, 2, 3, 4, 5], 'not_in': 'test'}
 ```
 
 # Version logger:
@@ -132,3 +133,7 @@ print(env.all(dumps=True))
 * Code refactoring has been completed
 * Added class __Variable__
 * Added `toString` parameter to __all()__ function and added __json()__ function
+
+### 1.0.6
+* Added the ability to have a default value for .env variable
+* Fixed reading of .env file

@@ -3,6 +3,7 @@ from .. import errors
 from ..typing.variable import Variable
 from .variables import EnvType
 from typing import Any
+from types import EllipsisType
 import os, json
 class EnvBase:
     __slots__ = '_cache',
@@ -21,20 +22,20 @@ class EnvBase:
         
     
     def __readenv(self):
-        if self.__class__.__envfile__ != '':
-            env = load_dotenv(self.__class__.__envfile__,encoding=self._encoding)
-            if not env:
+        if self.__class__.__envfile__:
+            load_dotenv(self.__class__.__envfile__,encoding=self._encoding)
+            if not os.path.isfile(self.__class__.__envfile__):
                 raise errors.EnvfileError("Failed to load env file: File does not exist")
             
     def __getvars(self):
         vars:dict[str, Variable] = {}
         for name in self.__class__.__annotations__.keys():
-            try:
+            if name in self.__class__.__dict__:
                 variable = self.__class__.__dict__[name]
-            except KeyError:
+            else:
                 variable = Variable()
-            if type(variable) != Variable:
-                raise errors.EnvVariableError("Failed to get value Variable: {key}".format(key=name))
+            if not isinstance(variable, Variable):
+                variable = Variable(var=variable)
             vars.update({name: variable})
         return vars
     
@@ -50,12 +51,16 @@ class EnvBase:
                 var = os.environ.get(variable.alias)
                 
             if variable.error:
-                
-                if var is None:
+                if var is None and isinstance(variable.var, EllipsisType):
                     raise errors.EnvValueError("Failed to get value: {key}".format(key=name))
             
-            if var is not None:
+            if not isinstance(variable.var, EllipsisType):
+                var = variable.var if var is None else var
+            
+            if var is not None or not isinstance(variable.var, EllipsisType):
                 var = EnvType(name, var, typing, error=variable.error)
+                
+                
             
             setattr(self.__class__, name, var)
     
@@ -66,7 +71,7 @@ class EnvBase:
         return f"EnvServ({', '.join(result)})"
 
     def __setattr__(self, name: str, value: Any) -> None:
-        if type(self.__class__._cache) == dict:
+        if isinstance(self.__class__._cache, dict):
             if name in self.__class__._cache:
                 variable:Variable = self.__class__._cache[name]
                 if variable.error:
@@ -74,7 +79,7 @@ class EnvBase:
                     if not variable.overwrite:
                         raise errors.EnvOverwriteError("Failed to overwrite: {key}".format(key=name))
                     
-                    if type(value) is not self.__class__.__annotations__[name]:
+                    if not isinstance(value, self.__class__.__annotations__[name]):
                         raise errors.EnvOverwriteError("Failed to overwrite {key}: Invalid data type".format(key=name))
                 
         setattr(self.__class__, name, value)
