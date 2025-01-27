@@ -138,3 +138,7 @@ print(env.all(toString=True))
 
 * Added the ability to have a default value for .env variable
 * Fixed reading of .env file
+
+### 1.0.7
+
+* Fixed `variable` function
