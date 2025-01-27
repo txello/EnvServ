@@ -11,8 +11,9 @@ class Variable:
         self.error = error
         
 def variable(
+        var = ...,
         alias:str|None = None,
         overwrite:bool = True,
         error:bool = True
     ) -> Variable:
-    return Variable(alias, overwrite, error)
+    return Variable(var=var, alias=alias, overwrite=overwrite, error=error)
