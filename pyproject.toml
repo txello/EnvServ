@@ -1,0 +1,20 @@
+[project]
+name = "envserv"
+version = "1.0.8"
+authors = [
+  { name="txello", email="txello7@proton.me" },
+]
+description = "Environment model"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "python-dotenv",
+]
+[project.urls]
+Homepage = "https://github.com/txello/EnvServ"
+Issues = "https://github.com/txello/EnvServ/issues"
